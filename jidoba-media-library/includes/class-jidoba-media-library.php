@@ -376,6 +376,7 @@ final class Jidoba_Media_Library {
 	private function render_book_card( $post_id ) {
 		$author = get_post_meta( $post_id, '_jidoba_book_author', true );
 		$url = get_post_meta( $post_id, '_jidoba_purchase_url', true );
+		$is_placeholder_url = '#' === trim( $url );
 		?>
 		<article class="jidoba-book-card">
 			<div class="jidoba-book-cover">
@@ -388,7 +389,9 @@ final class Jidoba_Media_Library {
 			<div class="jidoba-book-body">
 				<h3 class="jidoba-book-title"><?php echo esc_html( get_the_title( $post_id ) ); ?></h3>
 				<?php if ( $author ) : ?><p class="jidoba-book-author"><?php echo esc_html( sprintf( __( 'By %s', 'jidoba-media-library' ), $author ) ); ?></p><?php endif; ?>
-				<?php if ( $url ) : ?>
+				<?php if ( $is_placeholder_url ) : ?>
+					<span class="jidoba-action jidoba-purchase" aria-disabled="true"><span aria-hidden="true">🛒</span> <?php esc_html_e( 'Purchase', 'jidoba-media-library' ); ?></span>
+				<?php elseif ( $url ) : ?>
 					<a class="jidoba-action jidoba-purchase" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🛒</span> <?php esc_html_e( 'Purchase', 'jidoba-media-library' ); ?></a>
 				<?php endif; ?>
 			</div>

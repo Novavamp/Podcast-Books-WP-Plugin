@@ -132,6 +132,8 @@
 }
 
 .jidoba-action:hover { transform: translateY(-1px); filter: brightness(1.08); }
+.jidoba-action[aria-disabled="true"] { cursor: default; }
+.jidoba-action[aria-disabled="true"]:hover { transform: none; filter: none; }
 .jidoba-listen { color: #fff !important; background: var(--jidoba-red); }
 
 .jidoba-library--book .jidoba-items {
