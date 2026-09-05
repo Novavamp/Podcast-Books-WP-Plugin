@@ -172,7 +172,7 @@ final class Jidoba_Media_Library {
 		</p>
 		<p>
 			<label for="jidoba_purchase_url"><strong><?php esc_html_e( 'Purchase link', 'jidoba-media-library' ); ?></strong></label>
-			<input class="widefat" type="url" id="jidoba_purchase_url" name="jidoba_purchase_url" value="<?php echo esc_attr( $url ); ?>" placeholder="https://example.com/buy">
+			<input class="widefat" type="text" inputmode="url" id="jidoba_purchase_url" name="jidoba_purchase_url" value="<?php echo esc_attr( $url ); ?>" placeholder="https://example.com/buy or #">
 		</p>
 		<p class="description"><?php esc_html_e( 'Use Featured Image for the book cover and the title field above for the book title.', 'jidoba-media-library' ); ?></p>
 		<?php
