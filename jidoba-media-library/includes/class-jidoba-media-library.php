@@ -424,15 +424,23 @@ final class Jidoba_Media_Library {
 	}
 
 	public function ajax_filter_media() {
+		if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid request method.', 'jidoba-media-library' ) ), 405 );
+		}
 		check_ajax_referer( 'jidoba_filter_media', 'nonce' );
 		$type = isset( $_POST['type'] ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : '';
 		if ( ! in_array( $type, array( 'podcast', 'book' ), true ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid library type.', 'jidoba-media-library' ) ), 400 );
 		}
-		$page = isset( $_POST['page'] ) ? max( 1, absint( $_POST['page'] ) ) : 1;
+		$page = isset( $_POST['page'] ) ? min( 1000, max( 1, absint( $_POST['page'] ) ) ) : 1;
 		$per_page = isset( $_POST['per_page'] ) ? min( 50, max( 1, absint( $_POST['per_page'] ) ) ) : 8;
 		$search = isset( $_POST['search'] ) ? sanitize_text_field( wp_unslash( $_POST['search'] ) ) : '';
+		$search = function_exists( 'mb_substr' ) ? mb_substr( $search, 0, 100 ) : substr( $search, 0, 100 );
 		$term = isset( $_POST['term'] ) ? sanitize_title( wp_unslash( $_POST['term'] ) ) : '';
+		$taxonomy = 'podcast' === $type ? 'jidoba_podcast_topic' : 'jidoba_book_genre';
+		if ( $term && ! term_exists( $term, $taxonomy ) ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid library filter.', 'jidoba-media-library' ) ), 400 );
+		}
 		$query = $this->get_query( $type, $page, $per_page, $search, $term );
 		wp_send_json_success(
 			array(
