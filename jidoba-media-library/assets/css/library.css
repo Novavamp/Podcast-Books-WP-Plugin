@@ -210,3 +210,14 @@
   .jidoba-results, .jidoba-action, .jidoba-podcast-card { transition: none; }
   .jidoba-podcast-card:hover { transform: none; }
 }
+
+
+/* Additional presentation refinements for embedded library instances. */
+.jidoba-library { box-shadow: 0 16px 42px rgba(0, 0, 0, .16); }
+.jidoba-podcast-card:focus-within, .jidoba-book-card:focus-within { outline: 2px solid rgba(255,255,255,.72); outline-offset: 3px; }
+.jidoba-book-cover img { transition: transform .25s ease; }
+.jidoba-book-card:hover .jidoba-book-cover img { transform: scale(1.025); }
+@media (prefers-reduced-motion: reduce) {
+  .jidoba-book-cover img { transition: none; }
+  .jidoba-book-card:hover .jidoba-book-cover img { transform: none; }
+}
