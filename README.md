@@ -1,44 +1,50 @@
-<div align="center">
-
 # Jidoba Podcast & Book Library
 
-**A WordPress plugin for organising podcast episodes and books into searchable, filterable library displays.**
-
-![WordPress](https://img.shields.io/badge/WordPress-plugin-21759B?logo=wordpress&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4?logo=php&logoColor=white)
-![Version](https://img.shields.io/badge/version-1.0.3-334155)
-
-</div>
-
-## Overview
-
-Jidoba Podcast & Book Library registers podcast and book content types and provides shortcode-driven library displays. Its front end supports AJAX-based filtering so visitors can browse media without navigating through a long list of posts.
+A WordPress plugin for organising podcast episodes and books into searchable, filterable library displays.
 
 ## Features
 
-- Dedicated podcast and book content types.
+- Dedicated podcast and book custom post types.
+- Podcast topics and book genres.
 - Shortcode-based library output.
-- AJAX-filtered display.
-- Search and category/filter controls in the library interface.
-- Responsive podcast and book card layouts.
-- Pagination for library results.
+- AJAX filtering and search.
+- Responsive card layouts and pagination.
+- Custom metadata for listen and purchase links.
 
 ## Requirements
 
-- WordPress 6.0 or later.
-- PHP 7.4 or later.
+- WordPress 6.0+
+- PHP 7.4+
 
 ## Installation
 
-1. Download the plugin ZIP or clone this repository.
-2. Upload the plugin folder to `wp-content/plugins/`.
-3. Activate **Jidoba Podcast & Book Library** from the WordPress Plugins screen.
-4. Add podcast and book entries using the content types registered by the plugin.
-5. Place the relevant library shortcode on a page.
+1. Download the repository or plugin package.
+2. Upload the `jidoba-media-library` directory to `wp-content/plugins/`.
+3. Activate **Jidoba Podcast & Book Library** in WordPress.
+4. Add podcast episodes and books in the WordPress dashboard.
+5. Add one of the shortcodes below to a page.
 
 ## Shortcodes
 
-The plugin is designed around shortcode-based displays. Check the plugin's implementation and any bundled usage notes for the exact shortcode attributes supported by the installed version.
+```text
+[jidoba_podcasts]
+[jidoba_podcasts per_page="8" topic="interviews" show_filters="yes"]
+
+[jidoba_books]
+[jidoba_books per_page="12" genre="fiction" columns="3" show_filters="yes"]
+```
+
+Available attributes are sanitised and bounded by the plugin. The topic and genre values are taxonomy slugs.
+
+## Content management
+
+- Podcast entries use the title and editor for episode information and a custom listen URL field.
+- Book entries use the title, editor, featured image, author field, and purchase URL field.
+- Podcast topics and book genres are managed as WordPress taxonomies.
+
+## Security
+
+The plugin uses WordPress nonces for its public AJAX filter request and capability checks plus nonces when saving custom metadata. Public AJAX filtering is intended to expose only published library content. Keep WordPress core and the active theme updated, and test plugin compatibility in a staging environment before production upgrades.
 
 ## Project structure
 
@@ -52,18 +58,6 @@ jidoba-media-library/
 └── jidoba-media-library.php
 ```
 
-## Front-end presentation
+## Maintainer
 
-The library styles are scoped to the `.jidoba-library` component. Podcast and book cards use responsive grids, with reduced-motion support and visible keyboard focus styles.
-
-## Development
-
-The main plugin bootstrap loads the library class, initialises the plugin singleton, and registers activation and deactivation hooks.
-
-## Compatibility note
-
-Test the plugin with your active WordPress theme and any caching, security, or optimisation plugins before deploying it to a live site.
-
----
-
-Maintained by [Precious Okechukwu Nwosu](https://github.com/Novavamp).
+[Precious Okechukwu Nwosu](https://github.com/Novavamp)
